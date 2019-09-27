@@ -1,0 +1,10 @@
+{
+	"name": "testcase",
+	"version": "1.0.0",
+	"scripts": {
+		"test": "node ./node_modules/mocha/bin/mocha"
+	},
+	"devDependencies": {
+		"mocha": "^6.2.0"
+	}
+}
