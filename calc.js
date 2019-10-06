@@ -1,31 +1,11 @@
 'use strict';
 
+const mathematics = require('./mathematics');
+
 class Calculator {
 	constructor() {
 		this.ops = [];
 		this.nums = [];
-
-		this.methods = {
-			'+': (a, b) => +a + +b,
-			'-': (a, b) => a - b,
-			'/': (a, b) => a / b,
-			'*': (a, b) => a * b
-		};
-
-		this.priorities = {
-			'+': 5,
-			'-': 5,
-			'/': 10,
-			'*': 10
-		};
-	}
-
-	addMethod(name, action, priority){
-		priority = priority || 5;
-
-		this.methods[name] = action;
-
-		this.priorities[name] = priority;
 	}
 
 	opTop(){
@@ -36,11 +16,11 @@ class Calculator {
 		let popB = this.nums.pop();
 		let popA = this.nums.pop();
 
-		this.nums.push( this.methods[this.ops.pop()](popA, popB) );
+		this.nums.push( mathematics.operators[this.ops.pop()](popA, popB) );
 	}
 
 	matchString(str){
-		let opsString = '\\' + Object.keys(this.methods).join('\\');
+		let opsString = '\\' + Object.keys(mathematics.operators).join('\\');
 
 		let matcher = new RegExp('([\\-\\+]{1})?[0-9]{1,9}(\\.[0-9]{1,9})?|[\\(\\)' + opsString + ']', 'g');
 		let matches;
@@ -76,12 +56,12 @@ class Calculator {
 		matches.forEach((curr) => {
 			if( curr === '(' )
 				this.ops.push('(');
-			else if( this.methods[curr] !== undefined ){
-				if( this.ops.length !== 0 && ( this.priorities[this.opTop()] > this.priorities[curr] ) )
+			else if( mathematics.operators[curr] !== undefined ){
+				if( this.opTop() !== '(' && this.nums.length > 1 && ( mathematics.getPriority(this.opTop()) > mathematics.getPriority(curr) ) )
 					this.operate();
 
 				// left to right order for equal priorities
-				while( this.priorities[this.opTop()] === this.priorities[curr] )
+				while( this.opTop() !== '(' && this.nums.length > 1 && mathematics.getPriority(this.opTop()) === mathematics.getPriority(curr) )
 					this.operate();
 
 				this.ops.push(curr);
