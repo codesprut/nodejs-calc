@@ -4,32 +4,26 @@ const mathematics = require('./mathematics');
 
 class Lexer {
 
-	clearString(str){
-		str = str.replace(/\s/g, '');
-		str = str.split('.').join('.');
-
-		return str;
-	}
-
 	tokenize(exp){
 		let tokens = [];
 		let prevChar = '';
 		let char = '';
 		let negaPrefix = '';
 
-		let clearedStr = this.clearString(exp);
+		let preparedExp = this.prepareExp(exp);
 
-		for( let x = 0; x < clearedStr.length; x++ ){
+		for( let x = 0; x < preparedExp.length; x++ ){
 			prevChar = char;
-			char = clearedStr.charAt(x);
+			char = preparedExp.charAt(x);
 
 			if( mathematics.isOperator(char) ){
-
 				// signDetected
 				if( char === '-' && ( x === 0 || mathematics.isOperator(prevChar) || prevChar === '(' ) ) {
 					negaPrefix = char;
 					continue;
 				}
+				else if( mathematics.isOperator(prevChar) )
+					throw 'Invalid expression: ' + exp;
 			}
 			else if( mathematics.isNumber(char) || char === '.' ){
 				// part of number
@@ -40,7 +34,6 @@ class Lexer {
 				}
 			}
 			else if( char.match(/[a-z]/i) ){
-
 				// part of math const|func
 				if( prevChar.match(/[a-z]/i) ) {
 					tokens.push(tokens.pop() + char);
@@ -52,8 +45,32 @@ class Lexer {
 			negaPrefix = '';
 		}
 
+		return this.prepareTokens( tokens );
+	}
+
+	prepareExp(exp){
+		exp = exp.replace(/\s/g, '');
+		exp = exp.split('.').join('.');
+
+		let opsStr = '\\' + Object.keys(mathematics.operators).join('\\');
+
+		if( exp.match(new RegExp('[^\.\(\)' + opsStr + 'a-z0-9]', 'i')) )
+			throw 'Invalid expression: ' + exp;
+
+		return exp;
+	}
+
+	prepareTokens(tokens){
+		tokens.forEach((token) => {
+			if( token.match(/[a-z]+/i) ){
+				if( !mathematics.isMathConst(token) && !mathematics.isMathFunc(token) )
+					throw 'Math const|func not found: ' + token;
+			}
+		});
+
 		return tokens.join(' ');
 	}
+
 }
 
 module.exports = new Lexer();
