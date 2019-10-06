@@ -25,11 +25,4 @@ describe("Calculator tests", function() {
 	it("Decimal: 2.20 + 3.14 = 5.34", function() {
 		assert.equal(Calc.calculate('2.20+3.14'), 5.34);
 	});
-
-	it("add exponentiating: 2 ^ 8 = 256", function() {
-		Calc.addMethod('^', (a, b) => {
-			return a ** b;
-		}, 15);
-		assert.equal(Calc.calculate('2^8'), 256);
-	});
 });
