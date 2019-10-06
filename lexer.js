@@ -13,11 +13,9 @@ class Lexer {
 
 	tokenize(input){
 		let tokens = [];
-		let token = '';
 		let prevChar = '';
 		let char = '';
-
-		let modLast = false;
+		let negaPrefix = '';
 
 		input = this.clearString(input);
 
@@ -25,36 +23,26 @@ class Lexer {
 			prevChar = char;
 			char = input.charAt(x);
 
-			if( modLast ){
-				token += tokens.pop();
-				modLast = false;
-			}
-
-			token += char;
-
 			if( mathematics.isOperator(char) ){
 
 				// signDetected
 				if( x === 0 || mathematics.isOperator(prevChar) || prevChar === '(' ) {
-					modLast = true;
+					negaPrefix = '-';
 					continue;
 				}
 			}
-			else if( mathematics.isNumber(char) ){
-
+			else if( mathematics.isNumber(char) || char === '.' ){
 				// part of number
-				if( mathematics.isNumber(prevChar) ) {
-					modLast = true;
+				if( mathematics.isNumber(prevChar) || prevChar === '.' ) {
+					tokens.push( negaPrefix + tokens.pop() + char );
+					negaPrefix = '';
 					continue;
 				}
 			}
 
-			tokens.push(token);
-			token = '';
+			tokens.push( negaPrefix + char );
+			negaPrefix = '';
 		}
-
-		if( token.length !== 0 )
-			tokens.push( tokens.pop() + token );
 
 		return tokens.join(' ');
 	}
