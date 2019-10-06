@@ -9,4 +9,12 @@ describe("Lexer tokenize tests", function() {
 	it("2.2*-3/11 to 2.2 * -3 / 11", function() {
 		assert.equal(Lexer.tokenize('2.2*-3/11'), '2.2 * -3 / 11');
 	});
+
+	it("sqrt(15) to sqrt ( 15 )", function() {
+		assert.equal(Lexer.tokenize('sqrt(15)'), 'sqrt ( 15 )');
+	});
+
+	it("PI+2/12 to PI + 2 / 12", function() {
+		assert.equal(Lexer.tokenize('PI+2/12'), 'PI + 2 / 12');
+	});
 });

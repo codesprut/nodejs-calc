@@ -39,6 +39,14 @@ class Lexer {
 					continue;
 				}
 			}
+			else if( char.match(/[a-z]/i) ){
+
+				// part of math cons|func
+				if( prevChar.match(/[a-z]/i) ) {
+					tokens.push(tokens.pop() + char);
+					continue;
+				}
+			}
 
 			tokens.push( negaPrefix + char );
 			negaPrefix = '';
