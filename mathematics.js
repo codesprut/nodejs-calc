@@ -31,6 +31,9 @@ class mathematics {
 	}
 
 	isNumber(num) {
+		if( num.length === 0 )
+			return false;
+
 		return !isNaN(num);
 	}
 
