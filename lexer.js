@@ -4,30 +4,30 @@ const mathematics = require('./mathematics');
 
 class Lexer {
 
-	clearString(input){
-		input = input.replace(/\s/g, '');
-		input = input.split('.').join('.');
+	clearString(str){
+		str = str.replace(/\s/g, '');
+		str = str.split('.').join('.');
 
-		return input;
+		return str;
 	}
 
-	tokenize(input){
+	tokenize(exp){
 		let tokens = [];
 		let prevChar = '';
 		let char = '';
 		let negaPrefix = '';
 
-		input = this.clearString(input);
+		let clearedStr = this.clearString(exp);
 
-		for( let x = 0; x < input.length; x++ ){
+		for( let x = 0; x < clearedStr.length; x++ ){
 			prevChar = char;
-			char = input.charAt(x);
+			char = clearedStr.charAt(x);
 
 			if( mathematics.isOperator(char) ){
 
 				// signDetected
-				if( x === 0 || mathematics.isOperator(prevChar) || prevChar === '(' ) {
-					negaPrefix = '-';
+				if( char === '-' && ( x === 0 || mathematics.isOperator(prevChar) || prevChar === '(' ) ) {
+					negaPrefix = char;
 					continue;
 				}
 			}
@@ -41,7 +41,7 @@ class Lexer {
 			}
 			else if( char.match(/[a-z]/i) ){
 
-				// part of math cons|func
+				// part of math const|func
 				if( prevChar.match(/[a-z]/i) ) {
 					tokens.push(tokens.pop() + char);
 					continue;
