@@ -5,6 +5,9 @@ const mathematics = require('./mathematics');
 function Expression( exp ) {
 	let opsStr = '\\' + Object.keys(mathematics.operators).join('\\');
 
+	if( typeof exp !== 'string' )
+		throw 'Invalid expression';
+
 	exp = exp.replace(/\s/g, '');
 
 	// remove positive signs

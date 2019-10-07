@@ -7,12 +7,24 @@ describe("Expression tests", function() {
 		assert.equal(Expression('2.2*+3/11'), '2.2*3/11');
 	});
 
-	it("sqrt(12)", function() {
+	it("Math function", function() {
 		assert.equal(Expression('sqrt(12)'), 'sqrt(12)');
 	});
 
-	it("pow(2,3)", function() {
-		assert.equal(Expression('pow(2,3)'), 'pow(2,3)');
+	it("Math function with multiple params", function() {
+		assert.equal(Expression('max(2,3, -140)'), 'max(2,3,-140)');
+	});
+
+	it("Input dataType check", function() {
+		let test;
+		try{
+			test = Expression({test: 'case'});
+		}
+		catch(ex){
+			test = ex;
+		}
+
+		assert.equal(test, 'Invalid expression');
 	});
 
 	it("2-+-+--2 should fails", function() {
