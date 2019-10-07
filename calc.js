@@ -1,93 +1,54 @@
 'use strict';
 
 const mathematics = require('./mathematics');
+const lexer = require('./lexer');
+const postfixer = require('./postfixer');
+const expression = require('./expression');
 
 class Calculator {
-	constructor() {
-		this.ops = [];
-		this.nums = [];
+
+	constructor( fixed ){
+		this.fixed = fixed || 2;
 	}
 
-	opTop(){
-		return this.ops[this.ops.length - 1];
-	}
-
-	operate(){
-		let popB = this.nums.pop();
-		let popA = this.nums.pop();
-
-		this.nums.push( mathematics.operators[this.ops.pop()](popA, popB) );
-	}
-
-	matchString(str){
-		let opsString = '\\' + Object.keys(mathematics.operators).join('\\');
-
-		let matcher = new RegExp('([\\-\\+]{1})?[0-9]{1,9}(\\.[0-9]{1,9})?|[\\(\\)' + opsString + ']', 'g');
-		let matches;
-
-		// prevent incorrect decimal
-		str = str.split(',').join('.');
-
-		// remove unused characters
-		str = str.replace( new RegExp('[^0-9\\(\\)\\.' + opsString + ']', 'g'), '' );
-
-		// set a positive sign because matching is not exact
-		str = str.replace(/([0-9])([\\+\\-])([0-9])/g, '$1$2+$3')
-				.replace(/([0-9])([\\+\\-])([0-9])/g, '$1$2+$3');
-
-		matches = str.match(matcher);
-
-		if( !matches )
-			return [0];
-
-		return matches;
-	}
-
-	calculate(input){
+	calculate(exp){
+		let operands = [];
 		let result;
-		let matches = this.matchString(input);
+		let tokens;
+		let postfix;
 
-		if( typeof matches === 'string' )
-			return matches;
+		exp = expression(exp);
 
-		this.ops = [];
-		this.nums = [];
+		tokens = lexer.tokenize(exp);
 
-		matches.forEach((curr) => {
-			if( curr === '(' )
-				this.ops.push('(');
-			else if( mathematics.operators[curr] !== undefined ){
-				if( this.opTop() !== '(' && this.nums.length > 1 && ( mathematics.getPriority(this.opTop()) > mathematics.getPriority(curr) ) )
-					this.operate();
+		postfix = postfixer.convert(tokens);
+		postfix = postfix.split(' ');
 
-				// left to right order for equal priorities
-				while( this.opTop() !== '(' && this.nums.length > 1 && mathematics.getPriority(this.opTop()) === mathematics.getPriority(curr) )
-					this.operate();
-
-				this.ops.push(curr);
+		postfix.forEach((token) => {
+			if( mathematics.isNumber(token) ){
+				operands.push(token);
 			}
-			else if( curr === ')' ){
-				while(true){
-					if( this.opTop() === '(' ) {
-						this.ops.pop();
-						break;
-					}
-
-					this.operate();
-				}
+			else if( mathematics.isMathConst(token) ){
+				operands.push( Math[token] )
 			}
-			else {
-				this.nums.push(curr);
+			else if( mathematics.isMathFunc(token) ){
+				operands.push( Math[token]( operands.pop() ) );
+			}
+			else if( mathematics.isOperator(token) ){
+				console.log( 'operator: ' + token );
+				let popB = operands.pop();
+				let popA = operands.pop();
+
+				operands.push( mathematics.operation(token, popA, popB) );
 			}
 		});
 
-		while(this.nums.length > 1)
-			this.operate();
+		//if( operands.length > 1 )
 
-		result = this.nums[0];
+		result = operands[0];
 
 		if( result % 1 !== 0 )
-			result = Number(result.toFixed(3));
+			result = Number(result.toFixed(this.fixed));
 
 		return result;
 	}
