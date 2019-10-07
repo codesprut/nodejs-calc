@@ -45,4 +45,8 @@ describe("Calculator tests", function() {
 	it("Math function with multiple params and functions as params", function() {
 		assert.equal(Calc.calculate('max(10, 20 + 5, 30 - 40, pow(2,3), min ( 35, 70))'), 35);
 	});
+
+	it("Operations priority in math functions", function() {
+		assert.equal(Calc.calculate('max(1,2, (14-2)/2,5)'), 6);
+	});
 });

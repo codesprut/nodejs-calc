@@ -12,26 +12,31 @@ class Calculator {
 	}
 
 	calculate(exp){
+		let result;
 		let tokens;
 		let notation;
 
 		try {
 			exp = expression(exp);
+
+			tokens = lexer.tokenize(exp);
+
+			notation = postfixer.convert(tokens);
 		}
 		catch(ex) {
 			return ex;
 		}
 
-		tokens = lexer.tokenize(exp);
+		result = this.calcPostfix(notation);
 
-		notation = postfixer.convert(tokens);
+		if( mathematics.isNumber(result) && result % 1 !== 0 )
+			result = Number(result.toFixed(this.fixed));
 
-		return this.calcPostfix(notation);
+		return result;
 	}
 
 	calcPostfix(postfix){
 		let operands = [];
-		let result;
 
 		postfix = postfix.split(' ');
 
@@ -63,12 +68,7 @@ class Calculator {
 			}
 		});
 
-		result = operands[0];
-
-		if( result % 1 !== 0 )
-			result = Number(result.toFixed(this.fixed));
-
-		return result;
+		return operands[0];
 	}
 }
 
