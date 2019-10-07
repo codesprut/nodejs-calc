@@ -13,6 +13,8 @@ class postfixer {
 			if( mathematics.isNumber(token) || mathematics.isMathConst(token) ){
 				postfix.push(token)
 			}
+			else if( token === ',' )
+				return;
 			else if( token === '(' ){
 				opStack.push(token);
 			}

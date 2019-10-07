@@ -32,10 +32,9 @@ class Calculator {
 				operands.push( Math[token] )
 			}
 			else if( mathematics.isMathFunc(token) ){
-				operands.push( Math[token]( operands.pop() ) );
+				operands = [Math[token].apply( null, operands )];
 			}
 			else if( mathematics.isOperator(token) ){
-				console.log( 'operator: ' + token );
 				let popB = operands.pop();
 				let popA = operands.pop();
 

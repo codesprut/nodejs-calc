@@ -37,4 +37,12 @@ describe("Lexer tokenize tests", function() {
 	it("PI+2/12 to PI + 2 / 12", function() {
 		assert.equal(Lexer.tokenize('PI+2/12'), 'PI + 2 / 12');
 	});
+
+	it("pow(2,3) to pow ( 2 , 3 )", function() {
+		assert.equal(Lexer.tokenize('pow(2,3)'), 'pow ( 2 , 3 )');
+	});
+
+	it("min(-2,2,-3,-4)to min ( -2 , 2 , -3 , -4 )", function() {
+		assert.equal(Lexer.tokenize('min(-2,2,-3,-4)'), 'min ( -2 , 2 , -3 , -4 )');
+	});
 });

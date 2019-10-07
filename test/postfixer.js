@@ -21,4 +21,8 @@ describe("Postfixer tests", function() {
 	it("-4 - 4 to -4 4 -", function() {
 		assert.equal(Postfixer.convert('-4 - 4'), '-4 4 -');
 	});
+
+	it("pow ( 2 , 3 ) to 2 3 pow", function() {
+		assert.equal(Postfixer.convert('pow ( 2 , 3 )'), '2 3 pow');
+	});
 });

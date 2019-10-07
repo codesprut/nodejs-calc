@@ -33,4 +33,8 @@ describe("Calculator tests", function() {
 	it("sqrt(4)*5", function() {
 		assert.equal(Calc.calculate('sqrt(4)*5'), 10);
 	});
+
+	it("pow(2,3)", function() {
+		assert.equal(Calc.calculate('pow(2,3)'), 8);
+	});
 });

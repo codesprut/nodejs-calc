@@ -18,9 +18,11 @@ class Lexer {
 
 			if( mathematics.isOperator(char) ){
 				// signDetected
-				if( char === '-' && ( x === 0 || mathematics.isOperator(prevChar) || prevChar === '(' ) ) {
+				if( char === '-' && ( x === 0 || mathematics.isOperator(prevChar) || prevChar === '(' || prevChar === ',' ) ) {
 					negaPrefix = char;
-					negaTimes++;
+
+					if( mathematics.isOperator(prevChar) )
+						negaTimes++;
 
 					if( negaTimes > 1 ) {
 						tokens.push('(');
