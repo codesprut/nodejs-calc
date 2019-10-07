@@ -54,16 +54,4 @@ describe("Expression tests", function() {
 
 		assert.equal(test, 'Math const|func not found: VAR');
 	});
-
-	it("2.2^4 should fails", function() {
-		let test;
-		try{
-			test = Expression('2.2^4');
-		}
-		catch(ex){
-			test = ex;
-		}
-
-		assert.equal(test, 'Invalid expression: 2.2^4');
-	});
 });
