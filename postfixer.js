@@ -13,8 +13,6 @@ class postfixer {
 			if( mathematics.isNumber(token) || mathematics.isMathConst(token) ){
 				postfix.push(token)
 			}
-			else if( token === ',' )
-				return;
 			else if( token === '(' ){
 				opStack.push(token);
 			}
@@ -24,6 +22,12 @@ class postfixer {
 					postfix.push(topToken);
 					topToken = opStack.pop();
 				}
+			}
+			else if( token === ',' ){
+				if( opStack.length > 0 && opStack[opStack.length - 1] !== '('  )
+					postfix.push(opStack.pop());
+
+				return;
 			}
 			else {
 				while (

@@ -29,4 +29,8 @@ describe("Postfixer tests", function() {
 	it("-1 + pow ( 2 , 3 ) to -1 2 3 pow +", function() {
 		assert.equal(Postfixer.convert('-1 + pow ( 2 , 3 )'), '-1 2 3 pow +');
 	});
+
+	it("max ( 10 , 20 + 5 , 30 - 40 , min ( 40 , 100 ) )", function() {
+		assert.equal(Postfixer.convert('max ( 10 , 20 + 5 , 30 - 40 , min ( 40 , 100 ) )'), '10 20 5 + 30 40 - 40 100 min max');
+	});
 });
