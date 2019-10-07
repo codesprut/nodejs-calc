@@ -12,11 +12,9 @@ class Lexer {
 
 		let negaTimes = 0;
 
-		let preparedExp = this.prepareExp(exp);
-
-		for( let x = 0; x < preparedExp.length; x++ ){
+		for( let x = 0; x < exp.length; x++ ){
 			prevChar = char;
-			char = preparedExp.charAt(x);
+			char = exp.charAt(x);
 
 			if( mathematics.isOperator(char) ){
 				// signDetected
@@ -31,8 +29,6 @@ class Lexer {
 
 					continue;
 				}
-				else if( mathematics.isOperator(prevChar) )
-					throw 'Invalid expression: ' + exp;
 
 				if( negaTimes > 1 ){
 					for( let i = 0; i < negaTimes; i++ )
@@ -67,7 +63,7 @@ class Lexer {
 			negaPrefix = '';
 
 			// if it's last iteration and signs parens not closed
-			if( negaTimes > 1 && (x + 1) === preparedExp.length ){
+			if( negaTimes > 1 && (x + 1) === exp.length ){
 				for( let i = 0; i < negaTimes; i++ )
 					tokens.push(')');
 
@@ -75,32 +71,8 @@ class Lexer {
 			}
 		}
 
-		return this.prepareTokens( tokens );
-	}
-
-	prepareExp(exp){
-		exp = exp.replace(/\s/g, '');
-		exp = exp.split('.').join('.');
-
-		let opsStr = '\\' + Object.keys(mathematics.operators).join('\\');
-
-		if( exp.match(new RegExp('[^\.\(\)' + opsStr + 'a-z0-9]', 'i')) )
-			throw 'Invalid expression: ' + exp;
-
-		return exp;
-	}
-
-	prepareTokens(tokens){
-		tokens.forEach((token) => {
-			if( token.match(/[a-z]+/i) ){
-				if( !mathematics.isMathConst(token) && !mathematics.isMathFunc(token) )
-					throw 'Math const|func not found: ' + token;
-			}
-		});
-
 		return tokens.join(' ');
 	}
-
 }
 
 module.exports = new Lexer();

@@ -33,31 +33,4 @@ describe("Lexer tokenize tests", function() {
 	it("PI+2/12 to PI + 2 / 12", function() {
 		assert.equal(Lexer.tokenize('PI+2/12'), 'PI + 2 / 12');
 	});
-
-	it("VAR/2 should fails", function() {
-		try{
-			Lexer.tokenize('VAR/2');
-		}
-		catch(ex){
-			assert.equal(ex, 'Math const|func not found: VAR');
-		}
-	});
-
-	it("2.2^4 should fails", function() {
-		try{
-			Lexer.tokenize('2.2^4');
-		}
-		catch(ex){
-			assert.equal(ex, 'Invalid expression: 2.2^4');
-		}
-	});
-
-	it("2.2*+3/11 should fails", function() {
-		try{
-			Lexer.tokenize('2.2*+3/11');
-		}
-		catch(ex){
-			assert.equal(ex, 'Invalid expression: 2.2*+3/11');
-		}
-	});
 });
