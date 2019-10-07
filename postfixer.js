@@ -10,7 +10,7 @@ class postfixer {
 		let tokens  = string.split(' ');
 
 		tokens.forEach((token) => {
-			if( mathematics.isNumber(token) || mathematics.isMathFunc(token) || mathematics.isMathConst(token) ){
+			if( mathematics.isNumber(token) || mathematics.isMathConst(token) ){
 				postfix.push(token)
 			}
 			else if( token === '(' ){
