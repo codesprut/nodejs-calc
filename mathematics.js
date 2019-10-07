@@ -29,9 +29,11 @@ class mathematics {
 	getPriority(operator){
 		if( operator.match(/[\(\)]/) )
 			return 1;
+		else if( this.isMathFunc(operator) )
+			return 20;
 
 		if( !this.priorities.hasOwnProperty(operator) )
-			throw 'Undefined operator: ' + operator;
+			throw 0;
 
 		return this.priorities[operator];
 	}
