@@ -14,6 +14,11 @@ class postfixer {
 				postfix.push(token)
 			}
 			else if( token === '(' ){
+				if( opStack.length > 0 && opStack[opStack.length - 1] === '-' ){
+					opStack.pop();
+					opStack.push('--');
+				}
+
 				opStack.push(token);
 			}
 			else if( token === ')' ){
@@ -26,8 +31,6 @@ class postfixer {
 			else if( token === ',' ){
 				if( opStack.length > 0 && opStack[opStack.length - 1] !== '('  )
 					postfix.push(opStack.pop());
-
-				return;
 			}
 			else {
 				while (

@@ -7,7 +7,7 @@ describe("Postfixer tests", function() {
 	});
 
 	it("Many signs in a row", function() {
-		assert.equal(Postfixer.convert('4 + ( - ( - ( -4 ) ) ) / 2'), '4 -4 - - 2 / +');
+		assert.equal(Postfixer.convert('4 + ( - ( - ( -4 ) ) ) / 2'), '4 -4 -- -- 2 / +');
 	});
 
 	it("Negative to negative", function() {

@@ -11,6 +11,10 @@ class mathematics {
 			'%': (a, b) => a % b
 		};
 
+		this.unaryOperators = {
+			'--': (a) => a * -1
+		};
+
 		this.priorities = {
 			'+': 5,
 			'-': 5,
@@ -22,10 +26,12 @@ class mathematics {
 	}
 
 	operation(op, a, b){
-		if( !this.operators.hasOwnProperty(op) )
-			throw 'Undefined operator: ' + op;
+		if( this.operators.hasOwnProperty(op) )
+			return this.operators[op](a, b);
+		else if( this.unaryOperators.hasOwnProperty(op) )
+			return this.unaryOperators[op](a);
 
-		return this.operators[op](a, b);
+		throw 'Undefined operator: ' + op;
 	}
 
 	getPriority(operator){
@@ -40,6 +46,10 @@ class mathematics {
 
 	isOperator(token) {
 		return this.operators.hasOwnProperty(token);
+	}
+
+	isUnaryOperator(token){
+		return this.unaryOperators.hasOwnProperty(token);
 	}
 
 	isNumber(num) {
