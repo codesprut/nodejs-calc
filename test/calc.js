@@ -26,27 +26,19 @@ describe("Calculator tests", function() {
 		assert.equal(Calc.calculate('2.20+3.14'), 5.34);
 	});
 
-	it("PI + 2 = 5.14", function() {
+	it("Math constants", function() {
 		assert.equal(Calc.calculate('PI + 2'), 5.14);
 	});
 
-	it("sqrt(4)*5 = 10", function() {
+	it("Math function", function() {
 		assert.equal(Calc.calculate('sqrt(4)*5'), 10);
 	});
 
-	it("pow(2,3) = 8", function() {
-		assert.equal(Calc.calculate('pow(2,3)'), 8);
-	});
-
-	it("-1+pow(2,3) = 7", function() {
+	it("Math function, another order", function() {
 		assert.equal(Calc.calculate('-1+pow(2,3)'), 7);
 	});
 
-	it("-1+pow(2,3) = 7", function() {
-		assert.equal(Calc.calculate('-1+pow(2,3)'), 7);
-	});
-
-	it("max(10, 20 + 5, 30 - 40, pow(2,3), min ( 35, 70)) = 35", function() {
+	it("Math function with multiple params and functions as params", function() {
 		assert.equal(Calc.calculate('max(10, 20 + 5, 30 - 40, pow(2,3), min ( 35, 70))'), 35);
 	});
 });
