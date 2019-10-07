@@ -14,6 +14,10 @@ describe("Postfixer tests", function() {
 		assert.equal(Postfixer.convert('sqrt ( 5 )'), '5 sqrt');
 	});
 
+	it("sqrt ( 4 ) * 5 to 5 sqrt", function() {
+		assert.equal(Postfixer.convert('sqrt ( 4 ) * 5'), '4 sqrt 5 *');
+	});
+
 	it("-4 - 4 to -4 4 -", function() {
 		assert.equal(Postfixer.convert('-4 - 4'), '-4 4 -');
 	});
