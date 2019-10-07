@@ -57,6 +57,10 @@ class Lexer {
 					continue;
 				}
 			}
+			else if( char === '(' && negaPrefix.length > 0 ){
+				tokens.push('-');
+				negaPrefix = '';
+			}
 
 			if( negaTimes > 1 )
 				tokens.push('(');
