@@ -49,4 +49,16 @@ describe("Calculator tests", function() {
 	it("Operations priority in math functions", function() {
 		assert.equal(Calc.calculate('max(1,2, (14-2)/2,5)'), 6);
 	});
+
+	it("Division by zero should fails", function() {
+		let test;
+		try{
+			test = Calc.calculate('2/0');
+		}
+		catch(ex){
+			test = ex;
+		}
+
+		assert.equal(test, 'Division by zero');
+	});
 });

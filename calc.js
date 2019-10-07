@@ -22,12 +22,12 @@ class Calculator {
 			tokens = lexer.tokenize(exp);
 
 			notation = postfixer.convert(tokens);
+
+			result = this.calcPostfix(notation);
 		}
 		catch(ex) {
 			return ex;
 		}
-
-		result = this.calcPostfix(notation);
 
 		if( mathematics.isNumber(result) && result % 1 !== 0 )
 			result = Number(result.toFixed(this.fixed));
@@ -62,7 +62,10 @@ class Calculator {
 			}
 			else if( mathematics.isOperator(token) ){
 				let popB = operands.pop();
-				let popA = operands.pop();
+				let popA = operands.pop()
+
+				if( token === '/' && Number(popB) === 0 )
+					throw 'Division by zero';
 
 				operands.push( mathematics.operation(token, popA, popB) );
 			}
