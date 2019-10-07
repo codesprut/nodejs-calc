@@ -17,7 +17,12 @@ class Calculator {
 		let tokens;
 		let postfix;
 
-		exp = expression(exp);
+		try {
+			exp = expression(exp);
+		}
+		catch(ex) {
+			return ex;
+		}
 
 		tokens = lexer.tokenize(exp);
 
