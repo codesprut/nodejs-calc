@@ -14,6 +14,10 @@ describe("Lexer tokenize tests", function() {
 		assert.equal(Lexer.tokenize('4--4'), '4 - -4');
 	});
 
+	it("-4-4 to -4 - 4", function() {
+		assert.equal(Lexer.tokenize('-4-4'), '-4 - 4');
+	});
+
 	it("22222.12/-9999.9 to 22222.12 / -9999.9", function() {
 		assert.equal(Lexer.tokenize('22222.12/-9999.9'), '22222.12 / -9999.9');
 	});
