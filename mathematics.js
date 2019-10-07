@@ -11,15 +11,18 @@ class mathematics {
 		};
 
 		this.priorities = {
-			'+': 1,
-			'-': 1,
-			'/': 2,
-			'*': 2,
-			'%': 3
+			'+': 5,
+			'-': 5,
+			'/': 10,
+			'*': 10,
+			'%': 15
 		};
 	}
 
 	getPriority(operator){
+		if( operator.match(/[\(\)]/) )
+			return 1;
+
 		if( !this.priorities.hasOwnProperty(operator) )
 			throw 'Undefined operator: ' + operator;
 
