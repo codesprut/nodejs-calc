@@ -14,7 +14,7 @@ describe("Postfixer tests", function() {
 		assert.equal(Postfixer.convert('sqrt ( 5 )'), '5 sqrt');
 	});
 
-	it("sqrt ( 4 ) * 5 to 5 sqrt", function() {
+	it("sqrt ( 4 ) * 5 = 4 sqrt 5 *", function() {
 		assert.equal(Postfixer.convert('sqrt ( 4 ) * 5'), '4 sqrt 5 *');
 	});
 
@@ -26,7 +26,7 @@ describe("Postfixer tests", function() {
 		assert.equal(Postfixer.convert('pow ( 2 , 3 )'), '2 3 pow');
 	});
 
-	it("-1 + pow ( 2 , 3 ) to 2 3 pow -1 +", function() {
-		assert.equal(Postfixer.convert('-1 + pow ( 2 , 3 )'), '2 3 pow -1 +');
+	it("-1 + pow ( 2 , 3 ) to -1 2 3 pow +", function() {
+		assert.equal(Postfixer.convert('-1 + pow ( 2 , 3 )'), '-1 2 3 pow +');
 	});
 });

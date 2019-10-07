@@ -30,11 +30,15 @@ describe("Calculator tests", function() {
 		assert.equal(Calc.calculate('PI + 2'), 5.14);
 	});
 
-	it("sqrt(4)*5", function() {
+	it("sqrt(4)*5 = 10", function() {
 		assert.equal(Calc.calculate('sqrt(4)*5'), 10);
 	});
 
-	it("pow(2,3)", function() {
+	it("pow(2,3) = 8", function() {
 		assert.equal(Calc.calculate('pow(2,3)'), 8);
+	});
+
+	it("-1+pow(2,3) = 7", function() {
+		assert.equal(Calc.calculate('-1+pow(2,3)'), 7);
 	});
 });
