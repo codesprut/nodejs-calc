@@ -60,9 +60,12 @@ class Calculator {
 
 				operands.push( Math[token].apply(null, mathOps.reverse()) );
 			}
+			else if( mathematics.isUnaryOperator(token) ){
+				operands.push( mathematics.operation(token, operands.pop()) );
+			}
 			else if( mathematics.isOperator(token) ){
 				let popB = operands.pop();
-				let popA = operands.pop()
+				let popA = operands.pop();
 
 				if( token === '/' && Number(popB) === 0 )
 					throw 'Division by zero';
