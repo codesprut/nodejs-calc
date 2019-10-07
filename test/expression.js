@@ -11,6 +11,10 @@ describe("Expression tests", function() {
 		assert.equal(Expression('sqrt(12)'), 'sqrt(12)');
 	});
 
+	it("Many signs in a row", function() {
+		assert.equal(Expression('4+(-(-(-4)))/2'), '4+(-(-(-4)))/2');
+	});
+
 	it("Math function with multiple params", function() {
 		assert.equal(Expression('max(2,3, -140)'), 'max(2,3,-140)');
 	});

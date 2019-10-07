@@ -26,6 +26,10 @@ describe("Calculator tests", function() {
 		assert.equal(Calc.calculate('2.20+3.14'), 5.34);
 	});
 
+	it("Many signs in a row: 4 + ( - ( - ( -4 ) ) ) / 2", function() {
+		assert.equal(Calc.calculate('4 + ( - ( - ( -4 ) ) ) / 2'), 2);
+	});
+
 	it("Math constants", function() {
 		assert.equal(Calc.calculate('PI + 2'), 5.14);
 	});
