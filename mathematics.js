@@ -33,7 +33,7 @@ class mathematics {
 			return 20;
 
 		if( !this.priorities.hasOwnProperty(operator) )
-			throw 0;
+			return 0;
 
 		return this.priorities[operator];
 	}
