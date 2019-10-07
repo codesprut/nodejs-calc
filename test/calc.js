@@ -25,4 +25,12 @@ describe("Calculator tests", function() {
 	it("Decimal: 2.20 + 3.14 = 5.34", function() {
 		assert.equal(Calc.calculate('2.20+3.14'), 5.34);
 	});
+
+	it("PI + 2 = 5.14", function() {
+		assert.equal(Calc.calculate('PI + 2'), 5.14);
+	});
+
+	it("sqrt(4)*5", function() {
+		assert.equal(Calc.calculate('sqrt(4)*5'), 10);
+	});
 });
