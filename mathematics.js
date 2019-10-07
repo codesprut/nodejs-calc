@@ -19,6 +19,13 @@ class mathematics {
 		};
 	}
 
+	operation(op, a, b){
+		if( !this.operators.hasOwnProperty(op) )
+			throw 'Undefined operator: ' + op;
+
+		return this.operators[op](a, b);
+	}
+
 	getPriority(operator){
 		if( operator.match(/[\(\)]/) )
 			return 1;
