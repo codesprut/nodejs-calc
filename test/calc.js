@@ -50,6 +50,10 @@ describe("Calculator tests", function() {
 		assert.equal(Calc.calculate('max(1,2, (14-2)/2,5)'), 6);
 	});
 
+	it("Binary pow", function() {
+		assert.equal(Calc.calculate('2+2^3'), 10);
+	});
+
 	it("Division by zero should fails", function() {
 		let test;
 		try{
