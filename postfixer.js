@@ -38,6 +38,9 @@ class postfixer {
 					postfix.push(opStack.pop());
 				}
 
+				if( mathematics.isMathFunc(token) )
+					postfix.push('.');
+
 				opStack.push(token);
 			}
 		});
