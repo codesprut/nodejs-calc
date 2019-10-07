@@ -25,4 +25,8 @@ describe("Postfixer tests", function() {
 	it("pow ( 2 , 3 ) to 2 3 pow", function() {
 		assert.equal(Postfixer.convert('pow ( 2 , 3 )'), '2 3 pow');
 	});
+
+	it("-1 + pow ( 2 , 3 ) to 2 3 pow -1 +", function() {
+		assert.equal(Postfixer.convert('-1 + pow ( 2 , 3 )'), '2 3 pow -1 +');
+	});
 });
