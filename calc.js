@@ -36,16 +36,16 @@ class Calculator {
 			else if( mathematics.isMathConst(token) ){
 				operands.push( Math[token] );
 			}
+			else if( token === '.' )
+				operands.push('.');
 			else if( mathematics.isMathFunc(token) ){
 				let mathOps = [];
-				let toLength = 1;
+				let topOp   = operands.pop();
 
-				// use all operands, if have only one operand or now on last iteration
-				if( operands.length ===1 || index === (postfix.length - 1) )
-					toLength = 0;
-
-				while( operands.length !== toLength )
-					mathOps.push( operands.pop() );
+				while( topOp !== '.' ) {
+					mathOps.push(topOp);
+					topOp = operands.pop();
+				}
 
 				operands.push( Math[token].apply(null, mathOps.reverse()) );
 			}

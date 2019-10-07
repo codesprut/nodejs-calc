@@ -41,4 +41,12 @@ describe("Calculator tests", function() {
 	it("-1+pow(2,3) = 7", function() {
 		assert.equal(Calc.calculate('-1+pow(2,3)'), 7);
 	});
+
+	it("-1+pow(2,3) = 7", function() {
+		assert.equal(Calc.calculate('-1+pow(2,3)'), 7);
+	});
+
+	it("max(10, 20 + 5, 30 - 40, pow(2,3), min ( 35, 70)) = 35", function() {
+		assert.equal(Calc.calculate('max(10, 20 + 5, 30 - 40, pow(2,3), min ( 35, 70))'), 35);
+	});
 });
