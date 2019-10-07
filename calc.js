@@ -12,10 +12,8 @@ class Calculator {
 	}
 
 	calculate(exp){
-		let operands = [];
-		let result;
 		let tokens;
-		let postfix;
+		let notation;
 
 		try {
 			exp = expression(exp);
@@ -26,10 +24,18 @@ class Calculator {
 
 		tokens = lexer.tokenize(exp);
 
-		postfix = postfixer.convert(tokens);
+		notation = postfixer.convert(tokens);
+
+		return this.calcPostfix(notation);
+	}
+
+	calcPostfix(postfix){
+		let operands = [];
+		let result;
+
 		postfix = postfix.split(' ');
 
-		postfix.forEach((token, index) => {
+		postfix.forEach((token) => {
 			if( mathematics.isNumber(token) ){
 				operands.push(token);
 			}
