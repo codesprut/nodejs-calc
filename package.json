@@ -5,6 +5,6 @@
 		"test": "node ./node_modules/mocha/bin/mocha"
 	},
 	"devDependencies": {
-		"mocha": "^6.2.0"
+		"mocha": "^6.2.3"
 	}
 }
